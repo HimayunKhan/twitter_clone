@@ -25,7 +25,7 @@ export default function UsernameForm() {
       headers: {'content-type':'application/json'},
       body: JSON.stringify({username}),
     });
-    router.reload();
+    window.location.reload()
   }
 
   if (status === 'loading') {

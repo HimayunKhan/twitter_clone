@@ -26,6 +26,7 @@ export default function PostContent({
 
   return (
     <div>
+      {likedByMe ?1:0}
       <div className="flex w-full">
         <div>
           {!!author?.image && (

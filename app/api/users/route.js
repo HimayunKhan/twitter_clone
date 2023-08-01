@@ -18,3 +18,20 @@ export async function GET(request, context) {
     return NextResponse.error(error);
   }
 }
+
+
+
+export async function PUT(request, context) {
+  try {
+    await mongooseConnect();
+    const { username } = await request.json();
+    const session = await getServerSession(authOptions);
+    const userID = session?.user?.id;
+    await User.findByIdAndUpdate(userID, { username });
+    return new Response("okk");
+    // return NextResponse.json({ user });
+  } catch (error) {
+    console.log("errrr", error);
+    return NextResponse.error(error);
+  }
+}
