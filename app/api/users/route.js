@@ -26,7 +26,6 @@ export async function GET(request, context) {
 
     return NextResponse.json({ user, follow });
   } catch (error) {
-    console.log("errrr", error);
     return NextResponse.error(error);
   }
 }
@@ -41,9 +40,7 @@ export async function PUT(request, context) {
 
     await User.findByIdAndUpdate(userID, { username });
     return new Response("okk");
-    // return NextResponse.json({ user });
   } catch (error) {
-    console.log("errrr", error);
     return NextResponse.error(error);
   }
 }

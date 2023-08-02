@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import { mongooseConnect } from "@/lib/mongoose";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import Post from "@/models/Post";
-import User from "@/models/User";
-import Like from "@/models/Like";
 import Follower from "@/models/Follower";
 
 export async function POST(request, context) {
@@ -29,7 +26,6 @@ export async function POST(request, context) {
 
     }
   } catch (error) {
-    console.log("errrr", error);
     return NextResponse.error(error);
   }
 }

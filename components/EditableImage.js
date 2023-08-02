@@ -27,7 +27,6 @@ export default function EditableImage({type,src,onChange,className,editable=fals
       body:data,
     }).then(async response => {
       const json = await response?.json();
-      // console.log("jsssonnnnn",json)
       onChange(json);
       setIsUploading(false);
       window.location.reload()

@@ -38,7 +38,6 @@ export default function UserPage({params}) {
     }
     axios.get("/api/posts?author=" + profileInfo._id).then((response) => {
       
-      console.log(response)
       setPosts(response.data.posts);
       setPostsLikedByMe(response.data.idsLikedByMe);
     });

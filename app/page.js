@@ -1,5 +1,4 @@
 "use client";
-
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import UsernameForm from "../components/UsernameForm";
@@ -7,7 +6,6 @@ import useUserInfo from "../hooks/useUserInfo";
 import PostForm from "../components/PostForm";
 import axios from "axios";
 import PostContent from "../components/PostContent";
-import Layout from "../components/Layout";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -42,13 +40,12 @@ export default function Home() {
   }
 
   if (!userInfo) {
-    console.log({ session });
     router.push("/login");
     return "no user info";
   }
 
   return (
-    <Layout>
+    <>
       <h1 className="text-lg font-bold p-4">Home</h1>
       <PostForm
         onPost={() => {
@@ -86,6 +83,6 @@ export default function Home() {
           </button>
         </div>
       )}
-    </Layout>
+    </>
   );
 }

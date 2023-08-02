@@ -1,12 +1,9 @@
-
-
 import { NextResponse } from "next/server";
 import { mongooseConnect } from "@/lib/mongoose";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import Post from "@/models/Post";
 import Like from "@/models/Like";
-
 
 async function updateLikesCount(postId) {
   const post = await Post.findById(postId);
@@ -19,9 +16,8 @@ export async function POST(request, context) {
     await mongooseConnect();
     const session = await getServerSession(authOptions);
     const userID = session?.user?.id;
-    const {id} = await request.json();
+    const { id } = await request.json();
 
-	console.log("iddsssss",id)
     const postId = id;
     const userId = userID;
 
@@ -37,7 +33,6 @@ export async function POST(request, context) {
       return NextResponse.json({ like });
     }
   } catch (error) {
-    console.log("errrr", error);
     return NextResponse.error(error);
   }
 }

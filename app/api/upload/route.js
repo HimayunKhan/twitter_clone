@@ -86,16 +86,13 @@ export async function POST(request, context) {
       const photos = await uploadPhotosToCloudinary1(uploadDir, file.name);
       fs.unlinkSync(uploadDir);
       const imageURL = photos[0]?.secure_url || null;
-      // const user = await User.findById(userID);
-      // user.image = imageURL;
-      // const updatedUserpic = await user.save();
+   
       return NextResponse.json(imageURL);
     }
     
 
     return new Response("posiiiiii")
   } catch (error) {
-    console.log("errrr", error);
     return NextResponse.error(error);
   }
 }
