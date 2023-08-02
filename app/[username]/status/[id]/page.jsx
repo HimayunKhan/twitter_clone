@@ -40,7 +40,7 @@ export default function PostPage({params}) {
       {!!post?._id && (
         <div className="px-5 py-2">
           <TopNavLink />
-          {/* {post && (
+          {post && (
             <div className="pb-1">
               <PostContent {...post} />
               <div className="ml-5 h-12 relative">
@@ -48,7 +48,7 @@ export default function PostPage({params}) {
                      style={{marginLeft:'2px'}}></div>
               </div>
             </div>
-          )} */}
+          )}
           <div>
             <PostContent {...post} big />
           </div>

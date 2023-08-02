@@ -63,20 +63,21 @@ export async function GET(request, context) {
     // }
 
     if (id) {
-      const post = await Post.findById(id).populate("author");
+      const post = await Post.findById(id).populate("author").populate({
+        path: "parent",
+        populate: "author",
+      });
 
       return NextResponse.json({ post });
     } else {
       const { searchParams } = new URL(request?.url);
-      const parentD= searchParams.get("parent")
+      const parentD = searchParams.get("parent");
       const parent = parentD || null;
-      const author=searchParams.get("author")
+      const author = searchParams.get("author");
 
-      const searchFilter=author?{author}:{parent}
-      
-      console.log("parenntttt",parent)
+      const searchFilter = author ? { author } : { parent };
 
-      const posts = await Post.find(searchFilter )
+      const posts = await Post.find(searchFilter)
         .populate("author")
         .sort({ createdAt: -1 })
         .limit(20)
@@ -99,15 +100,6 @@ export async function GET(request, context) {
     return NextResponse.error(error);
   }
 }
-
-
-
-
-
-
-
-
-
 
 export async function POST(request, context) {
   try {
