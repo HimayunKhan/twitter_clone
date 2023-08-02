@@ -16,6 +16,7 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [idsLikedByMe, setIdsLikedByMe] = useState([]);
   const router = useRouter();
+  // const [tweetImage,setTweetImage]=useState("")
 
   function fetchHomePosts() {
     axios.get("/api/posts").then((response) => {
@@ -53,7 +54,8 @@ export default function Home() {
       <PostForm
         onPost={() => {
           fetchHomePosts();
-        }}
+          
+        }} 
       />
       <div className="">
         {posts.length > 0 &&

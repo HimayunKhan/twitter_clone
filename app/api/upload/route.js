@@ -37,6 +37,8 @@ export async function POST(request, context) {
     const userID = session?.user?.id;
 
     const formData = await request.formData();
+
+    console.log("formDxxxxata",formData)
     const [formDataEntry] = formData;
 
     if (formDataEntry[0] === "cover") {
@@ -72,6 +74,26 @@ export async function POST(request, context) {
       const updatedUserpic = await user.save();
       return NextResponse.json(updatedUserpic);
     }
+
+    if (formDataEntry[0] === "post") {
+      const file = formDataEntry[1];
+      const buffer = await file.arrayBuffer();
+      const name = uuidv4();
+      const ext = file.type.split("/")[1];
+      const tempdir = os.tmpdir();
+      const uploadDir = path.join(tempdir, `/${name}.${ext}`);
+      await fs.promises.writeFile(uploadDir, Buffer.from(buffer));
+      const photos = await uploadPhotosToCloudinary1(uploadDir, file.name);
+      fs.unlinkSync(uploadDir);
+      const imageURL = photos[0]?.secure_url || null;
+      // const user = await User.findById(userID);
+      // user.image = imageURL;
+      // const updatedUserpic = await user.save();
+      return NextResponse.json(imageURL);
+    }
+    
+
+    return new Response("posiiiiii")
   } catch (error) {
     console.log("errrr", error);
     return NextResponse.error(error);

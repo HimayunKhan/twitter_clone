@@ -19,6 +19,8 @@ export default function Upload({children,onUploadFinish}) {
       body:data,
     }).then(async response => {
       const json = await response.json();
+
+      console.log("sssddddddddd",json)
       const src = json.src;
       onUploadFinish(src);
       setIsUploading(false);
@@ -37,7 +39,7 @@ export default function Upload({children,onUploadFinish}) {
         setIsFileOver(false);
       }}
     >
-      <div className="relative">
+      <div className="relative border border-gray-500">
         {(isFileNearby || isFileOver) && (
           <div className="bg-twitterBlue absolute inset-0 flex items-center justify-center">drop your images here</div>
         )}
