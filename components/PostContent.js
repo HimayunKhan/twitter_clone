@@ -4,33 +4,42 @@ import Link from "next/link";
 import PostButtons from "./PostButtons";
 
 export default function PostContent({
-  text,author,createdAt,_id,
-  likesCount,likedByMe,commentsCount,
+  text,
+  author,
+  createdAt,
+  _id,
+  likesCount,
+  likedByMe,
+  commentsCount,
   images,
-  big=false}) {
+  big = false,
+}) {
+
 
   function showImages() {
     if (!images?.length) {
-      return '';
+      return "";
     }
+
     return (
       <div className="flex -mx-1">
-        {images.length > 0 && images.map(img => (
-          <div className="m-1" key={img}>
-            <img src={img} alt=""/>
-          </div>
-        ))}
+        {images.length > 0 &&
+          images.map((img) => (
+            <div className="m-1" key={img}>
+              <img src={img} alt="" />
+            </div>
+          ))}
       </div>
     );
   }
 
+ 
   return (
     <div>
-      {likedByMe ?1:0}
       <div className="flex w-full">
         <div>
           {!!author?.image && (
-            <Link href={'/'+author?.username}>
+            <Link href={"/" + author?.username}>
               <div className="cursor-pointer">
                 <Avatar src={author.image} />
               </div>
@@ -39,17 +48,21 @@ export default function PostContent({
         </div>
         <div className="pl-2 grow">
           <div>
-            <Link href={'/'+author?.username}>
-              <span className="font-bold pr-1 cursor-pointer">{author?.name}</span>
+            <Link href={"/" + author?.username}>
+              <span className="font-bold pr-1 cursor-pointer">
+                {author?.name}
+              </span>
             </Link>
-            {big && (<br />)}
-            <Link href={'/'+author?.username}>
-              <span className="text-twitterLightGray cursor-pointer">@{author?.username}</span>
+            {big && <br />}
+            <Link href={"/" + author?.username}>
+              <span className="text-twitterLightGray cursor-pointer">
+                @{author?.username}
+              </span>
             </Link>
             {createdAt && !big && (
               <span className="pl-1 text-twitterLightGray">
-              <ReactTimeAgo date={createdAt} timeStyle={'twitter'} />
-            </span>
+                <ReactTimeAgo date={createdAt} timeStyle={"twitter"} />
+              </span>
             )}
           </div>
           {!big && (
@@ -60,7 +73,13 @@ export default function PostContent({
                   {showImages()}
                 </div>
               </Link>
-              <PostButtons username={author?.username} id={_id} likesCount={likesCount} likedByMe={likedByMe} commentsCount={commentsCount} />
+              <PostButtons
+                username={author?.username}
+                id={_id}
+                likesCount={likesCount}
+                likedByMe={likedByMe}
+                commentsCount={commentsCount}
+              />
             </div>
           )}
         </div>
@@ -75,17 +94,22 @@ export default function PostContent({
           </Link>
           {createdAt && (
             <div className="text-twitterLightGray text-sm">
-              {(new Date(createdAt))
+              {new Date(createdAt)
                 .toISOString()
-                .replace('T', ' ')
-                .slice(0,16)
-                .split(' ')
+                .replace("T", " ")
+                .slice(0, 16)
+                .split(" ")
                 .reverse()
-                .join(' ')
-              }
+                .join(" ")}
             </div>
           )}
-          <PostButtons username={author?.username} id={_id} likesCount={likesCount} likedByMe={likedByMe} commentsCount={commentsCount} />
+          <PostButtons
+            username={author?.username}
+            id={_id}
+            likesCount={likesCount}
+            likedByMe={likedByMe}
+            commentsCount={commentsCount}
+          />
         </div>
       )}
     </div>

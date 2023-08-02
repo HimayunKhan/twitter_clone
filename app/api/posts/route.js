@@ -9,12 +9,11 @@ import Like from "@/models/Like";
 export async function GET(request, context) {
   try {
     await mongooseConnect();
-    
+
     const session = await getServerSession(authOptions);
     const userID = session?.user?.id;
     const { searchParams } = new URL(request?.url);
     const { id } = Object.fromEntries(searchParams.entries());
-
 
     // if (id) {
     //   const post = await Post.findById(id)
@@ -68,7 +67,16 @@ export async function GET(request, context) {
 
       return NextResponse.json({ post });
     } else {
-      const posts = await Post.find()
+      const { searchParams } = new URL(request?.url);
+      const parentD= searchParams.get("parent")
+      const parent = parentD || null;
+      const author=searchParams.get("author")
+
+      const searchFilter=author?{author}:{parent}
+      
+      console.log("parenntttt",parent)
+
+      const posts = await Post.find(searchFilter )
         .populate("author")
         .sort({ createdAt: -1 })
         .limit(20)
@@ -92,6 +100,15 @@ export async function GET(request, context) {
   }
 }
 
+
+
+
+
+
+
+
+
+
 export async function POST(request, context) {
   try {
     await mongooseConnect();
@@ -106,11 +123,11 @@ export async function POST(request, context) {
       images,
     });
 
-    // if (parent) {
-    //   const parentPost = await Post.findById(parent);
-    //   parentPost.commentsCount = await Post.countDocuments({ parent });
-    //   await parentPost.save();
-    // }
+    if (parent) {
+      const parentPost = await Post.findById(parent);
+      parentPost.commentsCount = await Post.countDocuments({ parent });
+      await parentPost.save();
+    }
     return NextResponse.json(post);
   } catch (error) {
     console.log("errrr", error);

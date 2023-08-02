@@ -16,22 +16,21 @@ export default function PostPage({params}) {
   const [replies,setReplies] = useState([]);
   const [repliesLikedByMe,setRepliesLikedByMe] = useState([]);
   const {userInfo} = useUserInfo();
-console.log("jijijijijijj",post)
   function fetchData() {
     axios.get('/api/posts?id='+id)
       .then(response => {
         setPost(response.data.post);
       });
-    // axios.get('/api/posts?parent='+id)
-    //   .then(response => {
-    //     setReplies(response.data.posts);
-    //     setRepliesLikedByMe(response.data.idsLikedByMe);
-    //   })
+    axios.get('/api/posts?parent='+id)
+      .then(response => {
+        setReplies(response.data.posts);
+        setRepliesLikedByMe(response.data.idsLikedByMe);
+      })
   }
 
   useEffect(() => {
     if (!id) {
-      return "hima";
+      return;
     }
     fetchData();
   }, [id]);
@@ -41,7 +40,7 @@ console.log("jijijijijijj",post)
       {!!post?._id && (
         <div className="px-5 py-2">
           <TopNavLink />
-          {post && (
+          {/* {post && (
             <div className="pb-1">
               <PostContent {...post} />
               <div className="ml-5 h-12 relative">
@@ -49,7 +48,7 @@ console.log("jijijijijijj",post)
                      style={{marginLeft:'2px'}}></div>
               </div>
             </div>
-          )}
+          )} */}
           <div>
             <PostContent {...post} big />
           </div>

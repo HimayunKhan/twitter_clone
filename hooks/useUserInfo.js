@@ -15,7 +15,6 @@ export default function useUserInfo() {
       setStatus('unauthenticated');
       return;
     }
-    console.log('fetch');
     fetch('/api/users?id='+session.user.id)
       .then(response => {
         response.json().then(json => {

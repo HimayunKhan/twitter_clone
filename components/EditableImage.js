@@ -26,9 +26,10 @@ export default function EditableImage({type,src,onChange,className,editable=fals
       method: 'POST',
       body:data,
     }).then(async response => {
-      const json = await response.json();
+      const json = await response?.json();
       onChange(json.src);
       setIsUploading(false);
+      window.location.reload()
     });
   }
 

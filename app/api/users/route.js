@@ -7,10 +7,19 @@ import User from "@/models/User";
 export async function GET(request, context) {
   try {
     await mongooseConnect();
+
+    const { searchParams } = new URL(request?.url);
+    const username=searchParams.get("username")
+   
     const session = await getServerSession(authOptions);
     const userID = session?.user?.id;
 
-    const user = await User.findById(userID);
+    const user = userID
+      ? await User.findById(userID)
+      : await User.findOne({username});
+
+      
+      
 
     return NextResponse.json({ user });
   } catch (error) {
@@ -24,9 +33,12 @@ export async function GET(request, context) {
 export async function PUT(request, context) {
   try {
     await mongooseConnect();
+   
     const { username } = await request.json();
     const session = await getServerSession(authOptions);
     const userID = session?.user?.id;
+
+
     await User.findByIdAndUpdate(userID, { username });
     return new Response("okk");
     // return NextResponse.json({ user });
