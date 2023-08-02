@@ -1,7 +1,8 @@
 import Avatar from "./Avatar";
-import ReactTimeAgo from "react-time-ago";
 import Link from "next/link";
 import PostButtons from "./PostButtons";
+import TimeAgo from 'timeago-react';
+
 
 export default function PostContent({
   text,
@@ -33,7 +34,9 @@ export default function PostContent({
     );
   }
 
- 
+
+
+
   return (
     <div>
       <div className="flex w-full">
@@ -61,7 +64,9 @@ export default function PostContent({
             </Link>
             {createdAt && !big && (
               <span className="pl-1 text-twitterLightGray">
-                <ReactTimeAgo date={createdAt} timeStyle={"twitter"} />
+               
+                <TimeAgo datetime={createdAt} locale="en" />
+
               </span>
             )}
           </div>
