@@ -12,18 +12,19 @@ export async function GET(request, context) {
     const { searchParams } = new URL(request?.url);
     const username = searchParams.get("username");
 
-    const session = await getServerSession(authOptions);
-    const userID = session?.user?.id;
+    if (username) {
+      const session = await getServerSession(authOptions);
+      const userID = session?.user?.id;
 
-    const user = await User.findOne({ username });
+      const user = await User.findOne({ username });
 
+      const follow = await Follower.findOne({
+        source: userID,
+        destination: user._id,
+      });
 
-    const follow = await Follower.findOne({
-      source: userID,
-      destination: user._id,
-    });
-
-    return NextResponse.json({ user,follow });
+      return NextResponse.json({ user, follow });
+    }
   } catch (error) {
     // return NextResponse.error(error);
   }
