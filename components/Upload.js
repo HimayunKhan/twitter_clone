@@ -19,10 +19,8 @@ export default function Upload({children,onUploadFinish}) {
       body:data,
     }).then(async response => {
       const json = await response.json();
-
-      console.log("sssddddddddd",json)
       const src = json.src;
-      onUploadFinish(src);
+      onUploadFinish(json);
       setIsUploading(false);
     });
   }

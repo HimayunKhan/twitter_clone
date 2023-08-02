@@ -10,10 +10,13 @@ export default function PostForm({
   compact,
   parent,
   placeholder = "What's happening?",
+ 
 }) {
   const { userInfo, status } = useUserInfo();
   const [text, setText] = useState("");
   const [images, setImages] = useState([]);
+  
+
 
   async function handlePostSubmit(e) {
     e.preventDefault();

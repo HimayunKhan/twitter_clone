@@ -38,7 +38,7 @@ export async function POST(request, context) {
 
     const formData = await request.formData();
 
-    console.log("formDxxxxata",formData)
+   
     const [formDataEntry] = formData;
 
     if (formDataEntry[0] === "cover") {

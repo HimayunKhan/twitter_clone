@@ -12,7 +12,6 @@ export async function POST(request, context) {
     await mongooseConnect();
     const { destination } = await request.json();
 
-	console.log("destinaaa",destination)
     const session = await getServerSession(authOptions);
     const userID = session?.user?.id;
 
