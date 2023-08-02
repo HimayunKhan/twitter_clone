@@ -15,9 +15,20 @@ export async function GET(request, context) {
     const session = await getServerSession(authOptions);
     const userID = session?.user?.id;
 
-    const user = userID
-      ? await User.findById(userID)
-      : await User.findOne({ username });
+    // const user = userID
+    //   ? await User.findById(userID)
+    //   : await User.findOne({ username });
+   let user;
+    if(userID){
+      user= await User.findById(userID)
+
+    }
+
+    if(username){
+      user= await User.findOne({ username });
+
+    }
+
 
     const follow = await Follower.findOne({
       source: userID,
